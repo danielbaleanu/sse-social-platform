@@ -198,7 +198,11 @@ if ($stmt->execute()):
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
 
-    if (!$result->num_rows) die();
+    if (!$result->num_rows):
+        $row['allowedActions'] = [];
+    else:
+        $row['allowedActions'] = explode("|", $row['allowed_actions']);
+    endif;
 
     $row['allowedActions'] = explode("|", $row['allowed_actions']);
 
